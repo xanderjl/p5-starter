@@ -1,5 +1,7 @@
 ## What Is This Project?
 
+**FIRST AND FOREMOST**, this project is largely based on Matt DesLaurier's [`canvas-sketch`](https://github.com/mattdesl/canvas-sketch). 
+
 This project is an attempt to be an accessible, low barrier to entry sketchbook for generative art. The styling is minimal, and the rest of the opinionated pieces _should_ be largely abstracted away.
 
 ## Getting Started
@@ -56,22 +58,24 @@ import SketchWrapper from 'components/SketchWrapper'
 import { NextPage } from 'next'
 import { ColorValue, Draw } from 'types/CustomP5'
 
-const width: number = 2048
-const height: number = 2048
-const dimensions: number[] = [width, height]
-const padding: number[] = [40]
-const background: ColorValue = [255, 253, 252]
+const MyNewSketch: NextPage = () => {
+  const width: number = 2048
+  const height: number = 2048
+  const dimensions: number[] = [width, height]
+  const padding: number[] = [40]
+  const background: ColorValue = [255, 253, 252]
 
-const draw: Draw = p5 => {}
+  const draw: Draw = p5 => {}
 
-const MyNewSketch: NextPage = () => (
-  <SketchWrapper
-    draw={draw}
-    dimensions={dimensions}
-    padding={padding}
-    background={background}
-  />
-)
+  return (
+    <SketchWrapper
+      draw={draw}
+      dimensions={dimensions}
+      padding={padding}
+      background={background}
+    />
+  )
+}
 
 export default MyNewSketch
 ```
@@ -80,7 +84,7 @@ You can navigate to this sketch by either finding it in the list of sketches on 
 
 ## How Do I Work With p5 in This Environment?
 
-You can treat any of your sketch pages as if you were writing a p5 sketch in [instance mode](https://www.youtube.com/watch?v=Su792jEauZg). 
+You can treat any of your sketch pages as if you were writing a p5 sketch in [instance mode](https://www.youtube.com/watch?v=Su792jEauZg).
 
 ### Setup
 
@@ -91,29 +95,32 @@ import SketchWrapper from 'components/SketchWrapper'
 import { NextPage } from 'next'
 import { ColorValue, Draw, Setup } from 'types/CustomP5'
 
-const width: number = 2048
-const height: number = 2048
-const dimensions: number[] = [width, height]
-const padding: number[] = [40]
-const background: ColorValue = [255, 253, 252]
+const MyNewSketch: NextPage = () => {
+  const width: number = 2048
+  const height: number = 2048
+  const dimensions: number[] = [width, height]
+  const padding: number[] = [40]
+  const background: ColorValue = [255, 253, 252]
 
-const setup: Setup = p5 => {
-  p5.colorMode(p5.HSB)
+  const setup: Setup = p5 => {
+    p5.colorMode(p5.HSB)
+  }
+
+  const draw: Draw = p5 => {}
+
+  return (
+    <SketchWrapper
+      setup={setup}
+      draw={draw}
+      dimensions={dimensions}
+      padding={padding}
+      background={background}
+    />
+  )
 }
 
-const draw: Draw = p5 => {}
-
-const MyNewSketch: NextPage = () => (
-  <SketchWrapper
-    setup={setup}
-    draw={draw}
-    dimensions={dimensions}
-    padding={padding}
-    background={background}
-  />
-)
-
 export default MyNewSketch
+
 ```
 
 We define a `setup` arrow function and perform whatever logic we'd like. We then need to pass that function to the `setup` prop in the `<SketchWrapper />` component. There is _a lot_ going on under the hood of the `<SketchWrapper />` that offers you some strong defaults. Maintaining the ratio of your sketch as you resize the window, being able to save sketches with `cmd + s` or `ctrl + s` depening on your OS, etc. **This functionality won't be overwritten by passing in new props**. You'd need to specifically override what these utility functions are doing. To get a feel for what's going on there, you can take a look in `./src/util/defaults`.
@@ -143,7 +150,7 @@ const setup: Setup = p5 => {
 const draw: Draw = p5 => {
   p5.noLoop()
   // Set stroke color to white
-  p5.stroke(0, 0, 255)
+  p5.stroke(0, 255, 255)
   p5.strokeWeight(6)
 
   // create an array with a length of TWO_PI.

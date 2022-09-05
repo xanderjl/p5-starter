@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "new:sketch:fullscreen": "npx hygen fullscreen new --name",
-    "new:sketch:square": "npx hygen square new --name",
-    "new:sketch:a4": "npx hygen a4 new --name",
+    "new:sketch:fullscreen": "hygen fullscreen new --name",
+    "new:sketch:square": "hygen square new --name",
+    "new:sketch:a4": "hygen a4 new --name",
     "lint": "next lint",
     "lint:fix": "next lint --fix"
   },
@@ -36,6 +36,7 @@
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
     "eslint-plugin-simple-import-sort": "^8.0.0",
+    "hygen": "6.2.8",
     "typescript": "4.8.2"
   }
 }
