@@ -9,6 +9,7 @@ import {
   KeyPressed,
   MouseClicked,
   P5,
+  P5Function,
   Setup,
   WindowResized,
 } from 'types/CustomP5'
@@ -50,6 +51,7 @@ const Sketch = dynamic<SketchWrapperProps>(
 
 const SketchWrapper: FC<SketchWrapperProps> = ({
   setup,
+  draw,
   windowResized,
   keyPressed,
   suffix,
@@ -81,6 +83,15 @@ const SketchWrapper: FC<SketchWrapperProps> = ({
       pixelDensity,
     })
     setup && setup(p5, canvasParentRef)
+  }
+
+  const defaultDraw: P5Function = p5 => {
+    if (typeof seed !== 'undefined') {
+      p5.noiseSeed(seed)
+      p5.randomSeed(seed)
+    }
+
+    draw && draw(p5)
   }
 
   const defaultWindowResized = (p5: P5) => {
@@ -123,7 +134,7 @@ const SketchWrapper: FC<SketchWrapperProps> = ({
   return (
     <Box
       css={{
-        '&:first-of-type': {
+        '.canvas-wrapper': {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -136,7 +147,9 @@ const SketchWrapper: FC<SketchWrapperProps> = ({
       }}
     >
       <Sketch
+        className="canvas-wrapper"
         setup={defaultSetup}
+        draw={defaultDraw}
         windowResized={defaultWindowResized}
         keyPressed={defaultKeyPressed}
         {...rest}

@@ -10,7 +10,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Head>
-        <title>Xandy's p5 playground</title>
+        <title>p5 playground</title>
         <link rel="icon" type="image/icon" href="/favicon.svg" />
       </Head>
       <Box position="relative" overflow="hidden">

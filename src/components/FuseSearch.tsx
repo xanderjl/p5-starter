@@ -1,4 +1,4 @@
-import { Input, InputProps, List, ListItem } from '@chakra-ui/react'
+import { CSSObject, Input, InputProps, List, ListItem } from '@chakra-ui/react'
 import { Link } from '@chakra-ui/react'
 import Fuse from 'fuse.js'
 import React, { FC, useState } from 'react'
@@ -12,11 +12,19 @@ const FuseSearch: FC<FuseSearchProps> = ({ sketches }) => {
   const fuse = new Fuse(sketches, { includeScore: true })
   const filteredSketches = fuse.search(value)
 
+  const focusStyles: CSSObject = {
+    border: '2px solid',
+    borderRadius: 8,
+    borderColor: 'red.100',
+    py: 1,
+    px: 3,
+  }
+
   return (
     <>
       <Input
         mb={4}
-        borderColor="black"
+        borderColor='black'
         value={value}
         onChange={e => setValue(e.target.value)}
       />
@@ -24,20 +32,20 @@ const FuseSearch: FC<FuseSearchProps> = ({ sketches }) => {
         {value !== ''
           ? filteredSketches.map(({ item }, i) => {
               return (
-                <Link key={item + i} href={`/sketches/${item}`}>
-                  <ListItem fontSize="2xl">
+                <ListItem key={item + i} fontSize='2xl'>
+                  <Link href={`/sketches/${item}`} _focus={focusStyles}>
                     {item.replaceAll('-', ' ')}
-                  </ListItem>
-                </Link>
+                  </Link>
+                </ListItem>
               )
             })
           : sketches.map((sketch, i) => {
               return (
-                <Link key={sketch + i} href={`/sketches/${sketch}`}>
-                  <ListItem fontSize="2xl">
+                <ListItem key={sketch + i} fontSize='2xl'>
+                  <Link href={`/sketches/${sketch}`} _focus={focusStyles}>
                     {sketch.replaceAll('-', ' ')}
-                  </ListItem>
-                </Link>
+                  </Link>
+                </ListItem>
               )
             })}
       </List>
